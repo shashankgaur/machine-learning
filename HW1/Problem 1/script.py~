@@ -1,0 +1,49 @@
+#!/usr/bin/python
+#author: Shashank Gaur, FEUP UP201309443
+#Course: Machine Learning HomeWork1
+#The file loads the training data, calculates the mean, convolution and then decides where to plot other data.
+import scipy.io
+import numpy
+import math
+import cmath
+from scipy.io import loadmat, savemat
+import matplotlib.pyplot as plt
+var = loadmat('trainingset.mat')
+#print(var)
+X1 = var['X1']
+X2 = var['X2']
+X3 = var['X3']
+XX = var['XX']
+#print (X1)
+#print (X1T)
+#print (X1T.shape)
+#print (numpy.cov(X1.T))
+meanX1 = numpy.asmatrix(numpy.mean(X1, axis=0))
+meanX3 = numpy.asmatrix(numpy.mean(X3, axis=0))
+meanX2 = numpy.asmatrix(numpy.mean(X2, axis=0))
+covX1 = numpy.cov(X1.T)
+covX2 = numpy.cov(X2.T)
+covX3 = numpy.cov(X3.T)
+detcovX1 = numpy.linalg.det(covX1)
+detcovX2 = numpy.linalg.det(covX2)
+detcovX3 = numpy.linalg.det(covX3)
+RowXX = XX.shape[0]
+ColXX = XX.shape[1]
+plt.plot(X1[:,0], X1[:,1], 'ro',X2[:,0], X2[:,1], 'bo', X3[:,0], X3[:,1], 'yo')
+
+
+x_min, x_max = X1[:, 0].min() - 1, X1[:, 0].max() + 1
+y_min, y_max = X2[:, 1].min() - 1, X2[:, 1].max() + 1
+xx, yy = numpy.meshgrid(numpy.arange(x_min, x_max, h),
+                     numpy.arange(y_min, y_max, h))
+
+# here "model" is your model's prediction (classification) function
+print numpy.c_[xx.ravel(), yy.ravel()] 
+
+
+
+
+#print (covX1, covX2, covX3)
+
+plt.show()
+

@@ -1,0 +1,32 @@
+#!/usr/bin/python
+#author: Shashank Gaur, FEUP UP201309443
+#Course: Machine Learning HomeWork1
+from numpy import *
+import math
+import cmath
+import matplotlib.pyplot as plt
+
+x = linspace(0, 10, 200)
+y = linspace(-5, 5, 200)
+#PDF function
+pdfx = exp(-x)
+pdfy = (sqrt(2*pi))*exp(-(y-2)**2)
+
+
+#Decision Functions
+pcax = 0.4*exp(-x)
+pcby = 0.6*(sqrt(2*pi))*exp(-(y-2)**2)
+#With consideration of Error cost
+minpcax = 1.2*pcax
+minpcby = 0.8*pcby
+
+
+#plt.figure()
+f, (plt1, plt2) = plt.subplots(1,2)
+plt1.plot(x, pcax, y, pcby, x, pdfx, y, pdfy)
+plt1.set_title('PDF and Decision Function ')
+#plt.plot(x, minpcax, y, minpcby, linewidth=2)
+plt2.fill_between(x, pcax, minpcax, color='green')
+plt2.fill_between(y, pcby, minpcby, color='red')
+plt2.set_title('Region with minimized cost')
+plt.show()

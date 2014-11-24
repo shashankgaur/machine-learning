@@ -1,0 +1,64 @@
+#!/usr/bin/python
+#author: Shashank Gaur, FEUP UP201309443
+#Course: Machine Learning HomeWork1
+from numpy import *
+import math
+import cmath
+import matplotlib.pyplot as plt
+
+
+
+S = matrix([(3,14),(4,20), (6,27), (8,41), (12,63), (15,73)])
+X = S[:,0]
+Y = S[:,1]
+# From Least Square Regression Formula
+SX = X.sum()
+SY = Y.sum()
+
+SXY = 0
+SX2 = 0
+SY2 = 0
+for x in range(0,6):
+    temp = X.item(x,0)*Y.item(x,0)
+    SY2 = SY2+Y.item(x,0)**2
+    SX2 = SX2+X.item(x,0)**2
+    SXY = SXY+temp
+
+
+A = (6*SXY-SX*SY)/(6*SX2-SX**2)
+B = (SY-A*SX)/6
+print "for F1(x) the value of a and b are", A, B
+C = (6*SXY-SX*SY)/(6*SY2-SY**2)
+D = (SX-C*SY)/6
+print "for F2(y) the value of c and d are", C, D
+print "the value of y at x=5 by F1(x) is",A*5+B
+print "the value of y at x=5 by F2(y) is",(5-D)/C
+
+#From (X'X)W = X'Y
+#f(x)=y=ax+b, a= 4.9858, b=0
+W1 = dot(dot(X.transpose(),Y),(linalg.inv(dot(X.transpose(),X))))
+#f(x)=x=cy+d, c= 0.2001, d=0
+W2 = dot(dot(Y.transpose(),X),(linalg.inv(dot(Y.transpose(),Y))))
+A = W1.item(0,0)
+C = W2.item(0,0)
+B = 0
+D = 0
+print "for F1(x) the value of a and b are", A, B
+print "for F2(y) the value of c and d are", C, D
+F1x= dot(A, X.transpose())
+F2y = dot(C, Y.transpose())
+
+#Value at x=5
+F1xat5 = A*5
+print "the value of y at x=5 by F1(x) is",F1xat5
+
+F2yat5 = 5/C
+
+print "the value of y at x=5 by F2(y) is",F2yat5
+
+print "Preferred model is F1(x)"
+
+plt.plot(X,A*X)
+plt.plot(Y,C*Y)
+
+plt.show()
