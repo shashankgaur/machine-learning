@@ -1,6 +1,7 @@
 #!/usr/bin/python
 #author: Shashank Gaur, FEUP, UP201309443
 #Course: Machine Learning HomeWork1
+# Explaination pending for the whole file
 #The file loads the training data, calculates the mean, convolution and then decides where to plot other data.
 import scipy.io
 #from sklearn import svm
